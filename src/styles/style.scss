@@ -4,8 +4,7 @@
   display: grid;
   grid-template-rows: 100px 100px;
   grid-template-columns: 100px 100px;
-  // grid-template-areas: "a b
-  //                       c d"
+                    
 
 }
 
@@ -24,4 +23,8 @@ grid-area: 2/1;
 
 [class*="right"] {
 grid-area: 2/2;
+}
+
+.reset {
+  display: none;
 }
