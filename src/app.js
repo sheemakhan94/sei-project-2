@@ -15,6 +15,7 @@ class App extends React.Component {
     this.trackName = ''
     this.result = ''
     this.scoreCounter = 0
+    this.questionCounter = 0
     this.filteredTracks = []
     this.unPlayed = false
     this.categories = {
@@ -29,22 +30,6 @@ class App extends React.Component {
 
   }
 
-
-  // getRandomTrack() {
-  //
-  //   const randomNum = Math.floor(Math.random() * 25)
-  //   this.trackName = this.state.tracks[randomNum].artist.name
-  //   this.filteredTracks = this.state.tracks.filter(track =>
-  //     track.artist.name !== this.trackName
-  //   )
-  //   // console.log(this.trackName)
-  //
-  //   // console.log(this.filteredTracks)
-  //   return this.state.tracks[randomNum].preview
-  // }
-
-
-
   randomAreaFunction() {
     const randAreaArr = ['1/1', '1/2', '2/1', '2/2']
     const randArr = randAreaArr[Math.floor(Math.random() * 4)]
@@ -53,33 +38,15 @@ class App extends React.Component {
   }
 
 
-  // componentHas(nextProps, nextState) {
-  //
-  //   console.log(nextProps, nextState)
-  // }
-  //
-  // componentDidUpdate() {
-  //   filteredTracks = this.filteredTracks
-  //   const randomArr = []
-  //
-  //   randomArr[0] = filteredTracks[Math.floor(Math.random() * 10 )].artist.name
-  //
-  //   randomArr[1] = filteredTracks[Math.floor(Math.random() * 10) + 11].artist.name
-  //   randomArr[2] = filteredTracks[Math.floor(Math.random() * 5) + 19].artist.name
-  //
-  //   this.setState( { randomSet: randomArr })
-  // }
-
-
-  getAnswers() {
-
-
-    const randomNum = Math.floor(Math.random() * 25)
-    this.trackName = this.state.tracks[randomNum].artist.name
+  getAnswers(questionCounter) {
+    console.log(questionCounter)
+    questionCounter = this.questionCounter
+    // const randomNum = Math.floor(Math.random() * 25)
+    this.trackName = this.state.tracks[questionCounter].artist.name
     this.filteredTracks = this.state.tracks.filter(track =>
       track.artist.name !== this.trackName)
 
-    this.playingSong = this.state.tracks[randomNum].preview
+    this.playingSong = this.state.tracks[questionCounter].preview
 
 
     const randomArr = []
@@ -111,17 +78,19 @@ class App extends React.Component {
       this.result = 'CORRECT'
       console.log(this.trackName)
       this.scoreCounter += 1
+      this.questionCounter +=1
       // this.getRandomTrack()
       // this.getRandomAnswers()
-      this.getAnswers()
+      this.getAnswers(this.questionCounter)
       this.scoreCounter = this.scoreCounter
       this.unPlayed = false
     } else {
       console.log(this.trackName)
       this.scoreCounter += 0
+      this.questionCounter +=1
       // this.getRandomTrack()
       // this.getRandomAnswers()
-      this.getAnswers()
+      this.getAnswers(this.questionCounter)
       this.result = 'WRONG'
       this.scoreCounter = this.scoreCounter
       this.unPlayed = false
