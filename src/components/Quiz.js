@@ -17,25 +17,38 @@ class Quiz extends React.Component {
     this.questionCounter = 0
     this.filteredTracks = []
     this.unPlayed = false
-    this.categories = {
-      hipHop: '31021',
-      pop: '31061',
-      OldSkoolRnB: '30811',
-      RnB: '30881'
-    }
-
-
-
-
   }
 
+  componentDidMount() {
+    this.getData()
+  }
+
+
+  //get request to set state with an array of 25 tracks according to genre picked by user.
+  getData() {
+    axios.get(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/radio/${this.props.strForInterpol}/tracks`)
+
+      .then(res => this.setState( { tracks: res.data.data },   () => this.getAnswers(), () => this.randomAreaFunction()))
+      .catch(err => console.log(err))
+  }
+
+  //resets/updates if user picks a category that is different
+  componentDidUpdate(prevProps) {
+    if (this.props.strForInterpol !== prevProps.strForInterpol) {
+      this.getData()
+      this.reset()
+    }
+  }
+
+  //function to generate random grid area for correct answer so that it changes position.
   randomAreaFunction() {
     const randAreaArr = ['1/1', '1/2', '2/1', '2/2']
     const randArr = randAreaArr[Math.floor(Math.random() * 4)]
     return randArr
   }
 
-
+  //function to generate song that plays (the correct answer) and also three random songs
+  // from the tracks array once the playing song has been filtered out the array.
   getAnswers(questionCounter) {
     if (!this.state.tracks) return null
     questionCounter = this.questionCounter
@@ -54,7 +67,7 @@ class Quiz extends React.Component {
     this.setState( { randomSet: randomArr })
   }
 
-
+  //game logic, increments points if guess is correct and keeps track to number of questions answered.
   winFunction(e) {
 
     this.unPlayed = true
@@ -89,13 +102,14 @@ class Quiz extends React.Component {
 
   }
 
+  //result displayed to user based on score and displays reset button
   gameOver(scoreCounter) {
 
     scoreCounter = this.scoreCounter
     let result = ''
     if (scoreCounter < 10) {
       result = ` Game over. Oh dear! You scored ${scoreCounter} out of 25, that is really very
-    disappointing. Reset to try again or browse our categories here.`
+    disappointing. Reset to try again or choose a different category.`
       this.result = result
     } else if  (scoreCounter < 15) {
       result =` Game over. You scored ${scoreCounter} out of 25, not bad but not good either. Reset to try again or pick a different category.`
@@ -107,15 +121,13 @@ class Quiz extends React.Component {
       result =` Game over. You scored ${scoreCounter} out of 25, well-bloody-done, you should be very proud. You must be quite the music buff. Test yourself and try another category!`
       this.result = result
     }
-
-    console.log('result', this.result)
     document.querySelector('.reset').style.display = 'block'
 
 
   }
 
+  //reset function
   reset() {
-
     this.trackName = ''
     this.result = ''
     this.scoreCounter = 0
@@ -126,63 +138,36 @@ class Quiz extends React.Component {
     this.getData()
   }
 
-
-  componentDidMount() {
-    console.log('mount', this.props)
-
-    this.getData()
-  }
-
-  getData() {
-    axios.get(`https://cors-anywhere.herokuapp.com/https://api.deezer.com/radio/${this.props.strForInterpol}/tracks`)
-
-      .then(res => this.setState( { tracks: res.data.data },   () => this.getAnswers(), () => this.randomAreaFunction()))
-      .catch(err => console.log(err))
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.strForInterpol !== prevProps.strForInterpol) {
-      this.getData()
-    }
-  }
-
-
-
   render() {
-
     if (!this.state.tracks) return null
-
     return (
       <main>
-
-        <h1> Who dat? </h1>
         <Sound
           url={this.playingSong}
           playStatus={Sound.status.PLAYING}
-
-
         />
         <div className = "grid-container" id="choice">
-          <button  onClick={this.winFunction} className="answerWrongOne">
-            <h3>{this.state.randomSet[0]}</h3>
+          <button  onClick={this.winFunction} className="One">
+            {this.state.randomSet[0]}
           </button>
-          <button  onClick={this.winFunction} className="answerRight" style={{gridArea: this.randomAreaFunction() }}>
-            <h3>{this.trackName}</h3>
+          <button  onClick={this.winFunction} className="Two"
+            style={{gridArea: this.randomAreaFunction() }}>
+            {this.trackName}
           </button>
-          <button onClick={this.winFunction} className="answerWrongTwo">
-            <h3>{this.state.randomSet[1]}</h3>
+          <button onClick={this.winFunction} className="Three">
+            {this.state.randomSet[1]}
           </button>
-          <button  onClick={this.winFunction} className="answerWrongThree">
-            <h3>{this.state.randomSet[2]}</h3>
+          <button  onClick={this.winFunction} className="Four">
+            {this.state.randomSet[2]}
           </button>
         </div>
-
         <h1 className="score">{this.scoreCounter}</h1>
-
-        <h2 className="result">{this.result}</h2>
-        <button onClick={this.reset} className = "reset">
-          <h2 >reset</h2>
-        </button>
+        <section className = "resultSection">
+          <h2 className="result">{this.result}</h2>
+          <button onClick={this.reset} className = "reset">
+            <h2 >reset</h2>
+          </button>
+        </section>
 
       </main>
 
