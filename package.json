@@ -9,7 +9,7 @@
     "build": "webpack -p",
     "start": "node index.js"
 
-}
+},
   },
   "author": "",
   "license": "ISC",
