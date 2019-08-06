@@ -8,8 +8,6 @@
     "serve": "webpack-dev-server --mode=development",
     "build": "webpack -p",
     "start": "node index.js"
-
-},
   },
   "author": "",
   "license": "ISC",
