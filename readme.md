@@ -65,7 +65,7 @@ getCategoryUrl(choice) {
 
 ## The Quiz
 
-I was mainly responsible for the styling and visual aspects of the game. I decided on a colour palette of millenial pink and gold as I found this suited the fun aspect of the game rather well. I used HTML and CSS to sort the categories into columns and media queries in order to make it responsive. When viewed on a mobile device the categories on the homepage are sorted into one long column as opposed to three short ones when viewed on a laptop. I also used React to create a Modal component; clicking the 'How To Play' button opens a dashboard with game instruction and the 'Got It' button closes it.
+I was mainly responsible for the styling and visual aspects of the game. I decided on a colour palette of millenial pink and gold as I found this suited the fun aspect of the game rather well. I used HTML and CSS to sort the categories into columns and media queries in order to make it responsive. When viewed on a mobile device the categories on the homepage are sorted into one long column as opposed to four short ones when viewed on a laptop. I also used React to create a Modal component; clicking the 'How To Play' button opens a dashboard with game instruction and the 'Got It' button closes it.
 
 ## Future Scope
 In order to further improve the functionality of this game we could have implemented user authentication in order to introduce a competition aspect to the game with multiple users scoring on a leaderboard. However, this would not have been possible in the timeframe we were given.
