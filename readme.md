@@ -56,17 +56,34 @@ Users are first asked to pick from one of nine music categories, this choice the
 
 <img src="src/assets/home.png" width="900">
 
-```js
-getCategoryUrl(choice) {
-  this.setState( { strForInterpol: this.state.categoryStrings[choice] })
-  this.hideButtons()
-}
-```
 
 ## The Quiz
 
 I was mainly responsible for the styling and visual aspects of the game. I decided on a colour palette of millenial pink and gold as I found this suited the fun aspect of the game rather well. I used HTML and CSS to sort the categories into columns and media queries in order to make it responsive. When viewed on a mobile device the categories on the homepage are sorted into one long column as opposed to four short ones when viewed on a laptop. I also used React to create a Modal component; clicking the 'How To Play' button opens a dashboard with game instruction and the 'Got It' button closes it.
 
+``` import React from 'react'
+
+const Modal = ({ handleClose, show }) => {
+
+  return(
+    <main className={show ? 'modal display-block' : 'modal display-none'}>
+      <div className="modal-main">
+        <p>Choose the genre you think you know best from the list of categories. A snippet of a song from that genre will start playing - use your musical wits to tell us who sang it. Remember you only have 30 seconds!</p>
+        <button
+          className="close-modal"
+          onClick={handleClose}>
+          Got it
+        </button>
+      </div>
+    </main>
+  )
+}
+
+export default Modal ```
+
 ## Future Scope
 In order to further improve the functionality of this game we could have implemented user authentication in order to introduce a competition aspect to the game with multiple users scoring on a leaderboard. However, this would not have been possible in the timeframe we were given.
 
+
+## Key Learnings
+This project taught me a lot about how to properly read API documentation for the specific information needed to be able to make the relevant calls. It was also my first experience working as part of a group and deciding together how to portion out the work.
