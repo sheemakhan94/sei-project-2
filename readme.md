@@ -79,7 +79,9 @@ const Modal = ({ handleClose, show }) => {
   )
 }
 
-export default Modal ```
+export default Modal
+
+```
 
 ## Future Scope
 In order to further improve the functionality of this game we could have implemented user authentication in order to introduce a competition aspect to the game with multiple users scoring on a leaderboard. However, this would not have been possible in the timeframe we were given.
